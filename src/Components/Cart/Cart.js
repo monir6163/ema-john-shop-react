@@ -31,7 +31,7 @@ const Cart = (props) => {
             <h4>Estimated Tax : ${estimatedTax.toFixed(2)}</h4>
             <hr />
             <h4>Total Price : ${orderTotal.toFixed(2)}</h4>
-            <button className="button">Place Order</button>
+            {props.children}
         </div>
     );
 };
