@@ -1,0 +1,23 @@
+.form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10%;
+}
+.email {
+    padding-bottom: 10px;
+}
+.email input{
+    padding: 10px;
+    width: 100%;
+}
+.pass {
+    padding-bottom: 10px;
+}
+.pass input {
+    padding: 10px;
+    width: 100%;
+}
+.submit input{
+    width: 110%;
+}
