@@ -19,6 +19,9 @@ function App() {
                 <Router>
                     <Header></Header>
                     <Switch>
+                        <Route exact path="/">
+                            <Shop></Shop>
+                        </Route>
                         <Route exact path="/shop">
                             <Shop></Shop>
                         </Route>

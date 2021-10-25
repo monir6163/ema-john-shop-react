@@ -5,7 +5,7 @@ import logo from '../../images/logo.png';
 import "./Header.css";
 
 const Header = () => {
-    const { user, setUser, signOutgoogle } = useAuth();
+    const { user, setUser, signOutgoogle, setIsLoading } = useAuth();
     const history = useHistory();
     const location = useLocation();
     const redirect_url = location.state?.from || "/shop";
@@ -14,6 +14,9 @@ const Header = () => {
             .then(() => {
                 history.push(redirect_url);
                 setUser({});
+            })
+            .finally(() => {
+                setIsLoading(false);
             })
     }
     return (

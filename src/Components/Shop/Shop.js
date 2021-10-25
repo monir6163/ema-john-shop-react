@@ -1,21 +1,28 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import useCart from '../../Hooks/UseCart';
 import { addToDb, getStoredCart } from '../../utilities/fakedb';
 import Cart from '../Cart/Cart';
 import Product from '../Product/Product';
 import "./Shop.css";
 const Shop = () => {
     const [products, SetProducts] = useState([]);
-    const [cart, setCart] = useState([]);
+    const [cart, setCart] = useCart();
     const [searchResultProduct, setsearchResultProduct] = useState([]);
+    const [pageCount, setPageCount] = useState(0);
+    const [page, setPage] = useState(0);
+    const size = 10;
     useEffect(() => {
-        fetch('./products.JSON')
+        fetch(`http://localhost:5000/products?page=${page}&&size=${size}`)
             .then(res => res.json())
             .then(data => {
-                SetProducts(data);
-                setsearchResultProduct(data);
+                SetProducts(data.products);
+                setsearchResultProduct(data.products);
+                const count = data.count;
+                const pageNumber = Math.ceil(count / size);
+                setPageCount(pageNumber);
             })
-    }, []);
+    }, [page]);
     useEffect(() => {
         if (products.length) {
             const saveCartProduct = getStoredCart();
@@ -30,7 +37,7 @@ const Shop = () => {
             };
             setCart(addedProductCart);
         }
-    }, [products]);
+    }, []);
     const handleBuyNow = (product) => {
         const exist = cart.find(pd => pd.key === product.key);
         let newCart = [];
@@ -61,6 +68,16 @@ const Shop = () => {
                     <div>
                         {
                             searchResultProduct.flatMap(product => <Product key={product.key} product={product} handleBuyNow={handleBuyNow}></Product>)
+                        }
+                    </div>
+                    {/* pagination */}
+                    <div className="pagination">
+                        {
+                            [...Array(pageCount).keys()].map(number => <button
+                                className={number === page ? 'selected' : ''}
+                                key={number}
+                                onClick={() => setPage(number)}
+                            >{number + 1}</button>)
                         }
                     </div>
                 </div>
