@@ -26,13 +26,14 @@ const Header = () => {
                 <NavLink to="/shop">Shop</NavLink>
                 <NavLink to="/order-review">Order Review</NavLink>
                 <NavLink to="/inventory">Manage Inventory</NavLink>
+                {user.email && <NavLink to="/myOrders">My Orders</NavLink>}
                 {user.email && <span style={{ color: "white" }}>Hello {user.displayName}</span>} &nbsp;&nbsp;
                 {user.email ?
                     <button onClick={hanfleSignOutgoogle}>Log Out</button> :
                     <NavLink to="/login">Login</NavLink>
                 }
             </nav>
-        </div>
+        </div >
     );
 };
 

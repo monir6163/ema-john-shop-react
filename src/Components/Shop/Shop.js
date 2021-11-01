@@ -23,6 +23,7 @@ const Shop = () => {
                 setPageCount(pageNumber);
             })
     }, [page]);
+
     useEffect(() => {
         if (products.length) {
             const saveCartProduct = getStoredCart();
@@ -56,6 +57,11 @@ const Shop = () => {
         const searchText = e.target.value;
         const machedProduct = products.filter(product => product.name.toLowerCase().includes(searchText.toLowerCase()));
         setsearchResultProduct(machedProduct);
+    }
+    if (products.length === 0) {
+        return (
+            <div class="loader">Loading...</div>
+        )
     }
     return (
         <div>
